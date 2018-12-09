@@ -23,6 +23,11 @@
         .dianji{width:350px;height:100px;}
 
         #page2 .dianji{width:100px;height:100px;}
+
+        .daan-list{position: absolute;top:630px;left:620px;width:680px;height:160px;}
+        .daan-list div{width:170px;float:left;height:160px;}
+        .modal{position: absolute;width:100%;height:100%;}
+        .layui-layer-dialog .layui-layer-content{color:#333;}
 	   
     </style>
 
@@ -47,13 +52,49 @@
 
 </div>
 
-<div id="page3">
+<div id="page3" class="hide">
 
-    <div id="list"></div>
+    <div id="list">
 
-    <img class="dianji" id="fanhui" src="img/fanhui.png" style="left:384px;top:747px;width:86px;height:85px;"/>
+        <div class="page" data-index="3"><img class="full-img" src="img/1.png"/></div>
+        <div class="page" data-index="1"><img class="full-img" src="img/2.png"/></div>
+        <div class="page" data-index="2"><img class="full-img" src="img/3.png"/></div>
+        <div class="page" data-index="4"><img class="full-img" src="img/4.png"/></div>
+        <div class="page" data-index="3"><img class="full-img" src="img/5.png"/></div>
 
-    <img class="dianji zhuye" src="img/chongzhi.png" style="left:1456px;top:747px;width:83px;height:83px;"/>
+        <div class="page" data-index="2"><img class="full-img" src="img/6.png"/></div>
+        <div class="page" data-index="3"><img class="full-img" src="img/7.png"/></div>
+        <div class="page" data-index="4"><img class="full-img" src="img/8.png"/></div>
+
+        <div class="page" data-index="3"><img class="full-img" src="img/9.png"/></div>
+        <div class="page" data-index="2"><img class="full-img" src="img/10.png"/></div>
+        <div class="page" data-index="4"><img class="full-img" src="img/11.png"/></div>
+        <div class="page" data-index="2"><img class="full-img" src="img/12.png"/></div>
+        <div class="page" data-index="4"><img class="full-img" src="img/13.png"/></div>
+
+    </div>
+
+    <div class="daan-list">
+        <div class="xuanxiang"></div>
+        <div class="xuanxiang"></div>
+        <div class="xuanxiang"></div>
+        <div class="xuanxiang"></div>
+    </div>
+
+
+    <div class="modal hide" id="yes" style="z-index:1002;">
+        <img class="dianji"  src="img/yes.png" style="left:768px;top:432px;width:464px;height:370px;"/>
+    </div>
+
+    <div class="modal hide" id="no">
+        <img class="dianji"  src="img/no.png" style="left:768px;top:432px;width:464px;height:370px;"/>
+    </div>
+
+    <img class="dianji zhuye" src="img/fanhui.png" style="left:384px;top:747px;width:86px;height:85px;z-index:1003;"/>
+
+    <img class="dianji" id="chongzhi" src="img/chongzhi.png" style="left:1456px;top:747px;width:83px;height:83px;"/>
+
+
 
 </div>
 
@@ -63,17 +104,13 @@
 
 <script src="js/jquery.js"></script>
 <script src="js/common.js"></script>
-<script src="js/swiper.min.js"></script>
+<script src="lib/layer/layer.js"></script>
 <script src="js/need.js"></script>
 
 <script>
 
-    for(var i=1;i<=13;i++)
-    {
-        $("#list").append('<div class="page"><img class="full-img" src="img/'+i+'.png"/></div>');
-    }
 
-    $("#list .page").eq(0).addClass("active");
+
 
     $("#kaishiyouxi").click(function()
     {
@@ -108,6 +145,55 @@
         $("#page2").show();
         $("#voice")[0].play();
 
+    });
+
+    $(".daan-list .xuanxiang").click(function()
+    {
+        if($("#list .active").length>0)
+        {
+            var index=$(this).index()+1;
+            console.log(index);
+
+            if(index==$("#list .active").attr("data-index"))
+            {
+                console.log("正确");
+                $("#yes").show();
+
+                var cIndex=$("#list .page").index($("#list .active"));
+
+                setTimeout(function()
+                {
+                    if(cIndex>=12)
+                    {
+                        layer.alert("恭喜你通关");
+                    }
+                    else
+                    {
+                        $("#yes").hide();
+                        $("#yes").hide();
+                        var nextObj=$("#list .active").next();
+                        $("#list .page").removeClass("active");
+                        nextObj.addClass("active");
+
+                    }
+                },1500)
+
+            }
+            else
+            {
+                console.log("错误");
+                $("#no").show();
+            }
+
+
+        }
+
+    });
+
+    $("#chongzhi").click(function()
+    {
+        $("#no").hide();
+        $("#yes").hide();
     });
 
 
