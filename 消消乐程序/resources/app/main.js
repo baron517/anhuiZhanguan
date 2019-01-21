@@ -14,13 +14,13 @@ let mainWindow
 
 function createWindow () {
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: 1920, height: 1080,frame:false,alwaysOnTop :false,backgroundColor:'#172244',resizable:false,movable:false,fullscreen:true})
+    mainWindow = new BrowserWindow({width: 1920, height: 1080,frame:false,alwaysOnTop :false,backgroundColor:'#74c823',resizable:false,movable:false,fullscreen:true})
 
     // and load the index.html of the app.
     mainWindow.loadURL(`file://${__dirname}/index.html`)
 
     // 调试工具
-   mainWindow.webContents.openDevTools()
+   //mainWindow.webContents.openDevTools()
 
     win_event(mainWindow);
    
